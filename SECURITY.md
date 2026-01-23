@@ -46,7 +46,7 @@ Send logs with malformed JSON, missing fields, or invalid data types.
 
 ## CI/CD Considerations
 - Auth and input validation tests run per commit
-- Injection and error-handling scenarios run on pull requests or nightly pipelines
 - Security violations block releases when detected
+
 
 
