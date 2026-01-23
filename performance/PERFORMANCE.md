@@ -89,7 +89,7 @@ Requests classified as Frustrated are considered release blockers.
 - The test does not validate full asynchronous processing completion
 - External dependencies are treated as black boxes
 - Results may vary depending on infrastructure configuration
-- The test focuses on behavior under load, not stress or soak testing
+- The default execution focuses on load testing; stress testing is defined as an extension.
 
 ## CI/CD Considerations
 
