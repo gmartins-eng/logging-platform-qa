@@ -44,32 +44,9 @@ Send logs with malformed JSON, missing fields, or invalid data types.
 - Validation errors are handled correctly
 - No backend exceptions or stack traces
 
-### Scenario 4 - Injection-like Payload
-
-**Category:** OWASP A3 - Injection
-
-**Description:**
-Send logs containing SQL-like statements, scripts, or control characters.
-
-**Expected Behavior:**
-- Payload is treated as data only
-- No execution or parsing failure
-- System remains stable
-
-### Scenario 5 - Error Handling & Information Disclosure
-
-**Category:** Security Misconfiguration
-
-**Description:**
-Trigger backend errors using invalid correlation IDs or unavailable resources.
-
-**Expected Behavior:**
-- Generic error responses
-- No stack traces, environment variables, or service names exposed
-- Consistent HTTP status code
-
 ## CI/CD Considerations
 - Auth and input validation tests run per commit
 - Injection and error-handling scenarios run on pull requests or nightly pipelines
 - Security violations block releases when detected
+
 
