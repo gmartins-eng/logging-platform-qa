@@ -41,7 +41,7 @@ Send logs with malformed JSON, missing fields, or invalid data types.
 
 **Expected Behavior:**
 - Request is rejected with HTTP 400
-- Validation errors are handled gracefully
+- Validation errors are handled correctly
 - No backend exceptions or stack traces
 
 ### Scenario 4 - Injection-like Payload
@@ -72,3 +72,4 @@ Trigger backend errors using invalid correlation IDs or unavailable resources.
 - Auth and input validation tests run per commit
 - Injection and error-handling scenarios run on pull requests or nightly pipelines
 - Security violations block releases when detected
+
