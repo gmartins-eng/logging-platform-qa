@@ -1,0 +1,74 @@
+## Security Strategy
+
+This document describes the security validation approach for the logging platform from a QA perspective.
+
+The goal is to ensure the system handles invalid or malicious usage safely,
+without exposing sensitive information or allowing unauthorized access.
+
+Security testing focuses on misuse scenarios and OWASP Top 10 regression coverage.
+
+## Security Test Scenarios
+
+### Scenario 1 - Missing or Invalid Authentication Token
+
+**Category:** Auth Misuse/OWASP A2
+
+**Description:**
+Send requests to protected endpoints without a token or using an invalid/expired token.
+
+**Expected Behavior:**
+- Request is rejected (401/403)
+- Error message is generic
+- No internal details are exposed
+
+### Scenario 2 - Token Misuse (Authorization Enforcement)
+**Category:** Broken Access Control
+
+**Description:**
+Attempt to access logs or correlation IDs that do not belong to the authenticated token.
+
+**Expected Behavior:**
+- Access is denied
+- Cross-tenant isolation is enforced
+- HTTP 403 response
+
+### Scenario 3 - Invalid or Malformed Payload
+
+**Category:** Input Validation
+
+**Description:**
+Send logs with malformed JSON, missing fields, or invalid data types.
+
+**Expected Behavior:**
+- Request is rejected with HTTP 400
+- Validation errors are handled gracefully
+- No backend exceptions or stack traces
+
+### Scenario 4 - Injection-like Payload
+
+**Category:** OWASP A3 - Injection
+
+**Description:**
+Send logs containing SQL-like statements, scripts, or control characters.
+
+**Expected Behavior:**
+- Payload is treated as data only
+- No execution or parsing failure
+- System remains stable
+
+### Scenario 5 - Error Handling & Information Disclosure
+
+**Category:** Security Misconfiguration
+
+**Description:**
+Trigger backend errors using invalid correlation IDs or unavailable resources.
+
+**Expected Behavior:**
+- Generic error responses
+- No stack traces, environment variables, or service names exposed
+- Consistent HTTP status code
+
+## CI/CD Considerations
+- Auth and input validation tests run per commit
+- Injection and error-handling scenarios run on pull requests or nightly pipelines
+- Security violations block releases when detected
